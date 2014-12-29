@@ -4,17 +4,26 @@
 
 {% block desc %}See {{ org }}'s ranking on Google Code-In Leaderboard{% endblock %}
 
-{% block content %}
-<div class="page-header">
-    <h1>Leaderboard for {{ org }}<br><small>{{ students }} students has finished {{ total }} tasks.</small></h1>
-</div>
+{% block header %}
+  <h1>{{ org }}</h1>
+  <p>
+    {{ students }} students {{ noun_form(students, 'has', 'have') }}
+    finished {{ total }} {{ noun_form(total, 'task', 'tasks') }}
+  </p>
+{% endblock %}
 
-<div>
-<div data-role="collapsible" data-mini="true" data-content-theme="b" data-theme="b" data-collapsed-icon="carat-r" data-expanded-icon="carat-d" data-collapsed="false">
-<ol data-role="listview" data-inset="true" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">
-{% for tup in leaderboard %}
-        <li><a title="See profile of {{ tup[0] }} in {{ org }}" href="{{ url_for('student', name=tup[0], e=tup[1], org=org) }}">{{ tup[0] }} has finished {{ tup[1] }} tasks in {{ org }}</a></li>
-{% endfor %}
-</ol>
-</div>
+{% block content %}
+  <div class="pure-menu pure-menu-open" style="width: 100%">
+    <ul>
+      <a href="#" class="pure-menu-heading">Leaderboard</a>
+      {% for tup in leaderboard %}
+      <li>
+        <a title="See profile of {{ tup[0] }} in {{ org }}" href="{{ url_for('student', name=tup[0], e=tup[1], org=org) }}">
+          {{ tup[0] }} has finished {{ tup[1] }} {{ noun_form(tup[1], 'task', 'tasks') }} in {{ org }}
+          <i style="float: right" class="fa fa-chevron-right"></i>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}

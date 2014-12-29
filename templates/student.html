@@ -1,11 +1,11 @@
 {% extends "index.html" %}
 
-{% block title %}Profile of {{ name }} in {{ orgname }}{% endblock %}
+{% block title %}Profile of {{ name }} in {{ org }}{% endblock %}
 
 {% block desc %}Profile of {{ name }} on Google Code-In 2014 leaderboard{% endblock %}
 
 {% block student_chart %}
-google.load("visualization", "1", {packages:["corechart"]});
+  google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
 
@@ -19,33 +19,43 @@ google.load("visualization", "1", {packages:["corechart"]});
         ]);
 
         var options = {
-          title: 'Tasks finished by {{ name }} per category',
-          is3D: false,
+          width: '100%',
+          chartArea: {width: '100%', height: '80%'},
+          is3D: false
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('TasksChart'));
-
+        var chart = new google.visualization.PieChart(document.getElementById('task-chart'));
         chart.draw(data, options);
       }
 {% endblock %}
 
+{% block header %}
+  <h1>{{ name }}</h1>
+  <p>
+  has finished {{ total }}
+  {{ noun_form(total, 'task', 'tasks') }}
+  {% if org != 'All Organizations' %} in {{ org }} {% endif %}
+  </p>
+{% endblock %}
+
 {% block content %}
-    <div class="page-header">
-        <h1>{{ name }}<br><small>Has finished a total of {{ total }} tasks in {{ orgname }}.</small></h1>
-    </div>
     <div>
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <h3 class="panel-title">Completed tasks</h3>
-            </div>
-            <div class="panel-body">
-                <div id="TasksChart" style="height: 500px; width: 100%;"></div>
-                <div class="list-group" style="margin-top:5%;">
-                    {% for task in tasks %}
-                    <a href="{{ task[1] }}" title="See task - {{ task[0] }} - on Google Melange" class="list-group-item list-group-item-info">{{ task[0] }}<span class="badge">{{ task[2] }}</span></a>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+      <div id="task-chart"></div>
+      <div class="pure-menu pure-menu-open" style="width: 100%">
+        <ul>
+          <a href="#" class="pure-menu-heading">Completed {% if (total > 1) or (total==0) %} tasks {% else %} task {% endif %}</a>
+          {% for task in tasks %}
+          <li>
+            <a href="{{ task[1] }}" title="See task - {{ task[0] }} - on Google Melange" class="list-group-item list-group-item-info">
+                {{ shorten(task[0], 80) }}
+              <div style="float:right;padding-left: 1px">
+                <span>{{ task[2] }}</span>
+                <i class="fa fa-chevron-right row-icon"></i>
+              </div>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
 {% endblock %}

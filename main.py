@@ -21,13 +21,40 @@ orglist = ['sugarlabs',
            'drupal',
            'fossasia']
 
+@app.context_processor
+def utility_processor():
+    def shorten(text, max_len=250):
+        if len(text) < max_len:
+            return text
+
+        word_wrap = text[:max_len].rfind(' ')
+        word_wrap = max_len if word_wrap == -1 else word_wrap
+
+        return text[:word_wrap] + '..'
+
+    def noun_form(num, singular_form, plural_form):
+        if num > 1 or num == 0:
+            return plural_form
+
+        return singular_form
+
+    def org_tabactive_attr(org, tab_org):
+        if tab_org.lower() == org.lower():
+            return 'class=pure-menu-selected'
+
+    return dict(
+        shorten=shorten,
+        noun_form=noun_form,
+        org_tabactive_attr=org_tabactive_attr
+    )
+
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return redirect('all')
 
 
-@app.route('/student/<name>-count=<int:e>-org=<org>')
+@app.route('/student/<name>-count=<int:e>-org<org>')
 def student(name, e=0, org=None):
     tasks = []
     code = 0
@@ -62,14 +89,14 @@ def student(name, e=0, org=None):
                     type_ = 'Code'
                 elif "Documentation" in type_:
                     doc += 1
-                    type_ = 'Documentation'   
+                    type_ = 'Documentation'
                 elif "Research" in type_:
                     research += 1
                     type_ = 'Outreach / Research'
                 elif "Quality" in type_:
                     quality += 1
                     type_ = 'Quality Assurance'
-                          
+
                 elif "User Interface" in type_:
                     interface += 1
                     type_ = 'User Interface'
@@ -90,7 +117,7 @@ def student(name, e=0, org=None):
         documentation=doc,
         research=research,
         name=name,
-        orgname=org)
+        org=org)
 
 
 @app.route('/org/<org>/')

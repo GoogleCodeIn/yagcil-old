@@ -9,78 +9,77 @@
     {% endblock %} - Google Code-In Leaderboard
     </title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Robots" content="follow, index" />
     <meta name="Description" content="{% block desc %}Visit this website and check Google Code-In 2014 unofficial leaderboard!{% endblock %}" />
     <meta name="Keywords" content="gci, google code-in, leaderboard, fossasia, kde, drupal, mifos, copyleft games, brlcad, aperitum, haiku, openmrs, sugar, wikimedia, sahana eden" />
 
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.4.1/canvas.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <style>
-    #content{margin:5% 10%;}
-    </style>
-    <script type="text/javascript">
-    $(document).ready(function(){
-
-	//Click event to scroll to top
-	$('.scrollUpButton').click(function(){
-		$('html, body').animate({scrollTop : 0},800);
-		return false;
-	});
-
-    });
-    {% block student_chart %}
-
-    {% endblock %}
-    </script>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="/static/css/purecss-babyblue.css">
+    <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-    <a href="https://github.com/ignaciouy/GCILeaderboard"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 1040" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <ul class="nav navbar-nav">
-            <li role="presentation"><a href="/">Home</a></li>
-            <li role="presentation"><a href="{{ url_for('allorgs') }}">All</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='apertium') }}">Apertium</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='brlcad') }}">BRL-CAD</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='copyleftgames') }}">Copyleft Games</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='drupal') }}">Drupal</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='fossasia') }}">FOSS Asia</a>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='haiku') }}">Haiku</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='kde') }}">KDE</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='mifos') }}">Mifos</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='openmrs') }}">OpenMRS</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='sahana') }}">Sahana Eden</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='sugarlabs') }}">Sugar Labs</a></li>
-            <li role="presentation"><a href="{{ url_for('leaderboard', org='wikimedia') }}">Wikimedia</a></li>
-            <li role="presentation"><a href="https://github.com/ignaciouy/GCILeaderboard">About</a></li>
-        </ul>
-    </nav>
-    <div id='content'>
-    {% block content %}
-        <h1>Hi!</h1>
-        This website is a per organization unofficial leaderboard for Google Code-In 2014. Click on your organization above.
-        <br>
-        Enjoy!
-        <hr/>
-        <i>Code available on GPLv3 license. Feel free to <a href="https://github.com/ignaciouy/GCILeaderboard">fork it</a>!</i><br/>
+    <div id="layout">
+      <a href="https://github.com/poxip/GCILeaderboard"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 1040" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+      <div id="menu">
+        <div class="pure-menu pure-menu-open">
+          <a class="pure-menu-heading">GCI 2014</a>
+
+          <ul>
+              <li {{ org_tabactive_attr(org, 'all organizations') }}><a href="{{ url_for('allorgs') }}">All</a></li>
+              <li {{ org_tabactive_attr(org, 'apertium') }}><a href="{{ url_for('leaderboard', org='apertium') }}">Apertium</a></li>
+              <li {{ org_tabactive_attr(org, 'brlcad') }}><a href="{{ url_for('leaderboard', org='brlcad') }}">BRL-CAD</a></li>
+              <li {{ org_tabactive_attr(org, 'copyleftgames') }}><a href="{{ url_for('leaderboard', org='copyleftgames') }}">Copyleft Games</a></li>
+              <li {{ org_tabactive_attr(org, 'drupal') }}><a href="{{ url_for('leaderboard', org='drupal') }}">Drupal</a></li>
+              <li {{ org_tabactive_attr(org, 'fossasia') }}><a href="{{ url_for('leaderboard', org='fossasia') }}">FOSS Asia</a>
+              <li {{ org_tabactive_attr(org, 'haiku') }}><a href="{{ url_for('leaderboard', org='haiku') }}">Haiku</a></li>
+              <li {{ org_tabactive_attr(org, 'kde') }}><a href="{{ url_for('leaderboard', org='kde') }}">KDE</a></li>
+              <li {{ org_tabactive_attr(org, 'mifos') }}><a href="{{ url_for('leaderboard', org='mifos') }}">Mifos</a></li>
+              <li {{ org_tabactive_attr(org, 'openmrs') }}><a href="{{ url_for('leaderboard', org='openmrs') }}">OpenMRS</a></li>
+              <li {{ org_tabactive_attr(org, 'sahana') }}><a href="{{ url_for('leaderboard', org='sahana') }}">Sahana Eden</a></li>
+              <li {{ org_tabactive_attr(org, 'sugarlabs') }}><a href="{{ url_for('leaderboard', org='sugarlabs') }}">Sugar Labs</a></li>
+              <li {{ org_tabactive_attr(org, 'wikimedia') }}><a href="{{ url_for('leaderboard', org='wikimedia') }}">Wikimedia</a></li>
+              <li><a href="https://github.com/poxip/GCILeaderboard">About</a></li>
+          </ul>
+      </div>
+    </div>
+    <div id="main">
+      <div class='header'>
+      {% block header %}
+      {% endblock %}
+      </div>
+      <div class='content'>
+      {% block content %}
+      {% endblock %}
+      </div>
+      <div class="footer">
+        <div class="legal pure-g">
+          <div class="pure-u-1 u-sm-1-2">
+          <p class="legal-license">
+            Edited with <a href="https://github.com/ignaciouy/GCILeaderboard">some pain..</a>but desinged to have better performance.
+            <br>
+            Proudly powered by <a href="http://purecss.io">Pure CSS</a> and <a href="http://heroku.com">Heroku</a>
+          </p>
+          </div>
+          <div class="pure-u-1 u-sm-1-2">
+            <ul class="legal-links">
+              <li>Yet Another Google Code In Leaderboard</li>
+              <li><a href="https://github.com/poxip/yagcil">GitHub Project</a></li>
+            </ul>
+            <p class="legal-copyright" title="gtranslate: Mike Powder!">
+            &copy; 2014 Michal Proszek
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script type="text/javascript">
+    {% block student_chart %}
     {% endblock %}
-    </div>
-    {% if request.path != "/" %}
-    <footer style="margin: 5% 5%; font-size: 70%" >
-    <br/>
-    <hr/>
-    Created with love for Google Code-In
-    <div style="float: right">
-    <a href="#" title="Scroll up to top" class="scrollUpButton"><b>Go top</b></a>
-    <br/>
-    </div>
-    <br/>
-    Code available on GPLv3 License
-    <br/>
-    <a target="_blank" href="https://github.com/ignaciouy/GCILeaderboard/issues/new" title="Create new issue report">Create issue report</a>
-    </footer>
-    {% endif %}
+  </script>
 </body>
 </html>
