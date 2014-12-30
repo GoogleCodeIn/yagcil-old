@@ -2,3 +2,27 @@
   text-decoration: none;
   vertical-align: middle !important;
 }
+
+.tasklist-row {
+  -o-text-overflow: ellipsis;   /* Opera */
+  text-overflow:    ellipsis;   /* IE, Safari (WebKit) */
+  overflow: hidden;              /* don't show excess chars */
+  white-space: nowrap;           /* force single line */
+}
+
+.tasklist-row-right {
+  float: right;
+  padding-left: 1px;
+}
+
+@media screen and (max-width: 850px) {
+  .tasklist-row-tasktype {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .tasklist-row-arrow {
+    display: none;
+  }
+}

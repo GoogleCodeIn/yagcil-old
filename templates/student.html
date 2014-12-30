@@ -20,6 +20,10 @@
 
         var options = {
           width: '100%',
+          animation:{
+            duration: 1000,
+            easing: 'out',
+          },
           chartArea: {width: '100%', height: '80%'},
           is3D: false
         };
@@ -32,7 +36,7 @@
 {% block header %}
   <h1>{{ name }}</h1>
   <p>
-  has finished {{ total }}
+  has finished <b>{{ total }}</b>
   {{ noun_form(total, 'task', 'tasks') }}
   {% if org != 'All Organizations' %} in {{ org }} {% endif %}
   </p>
@@ -45,13 +49,15 @@
         <ul>
           <a href="#" class="pure-menu-heading">Completed {% if (total > 1) or (total==0) %} tasks {% else %} task {% endif %}</a>
           {% for task in tasks %}
-          <li>
+          <li class="tasklist-row">
             <a href="{{ task[1] }}" title="See task - {{ task[0] }} - on Google Melange" class="list-group-item list-group-item-info">
+              <span class="tasklist-row-main">
                 {{ shorten(task[0], 80) }}
-              <div style="float:right;padding-left: 1px">
-                <span>{{ task[2] }}</span>
-                <i class="fa fa-chevron-right row-icon"></i>
-              </div>
+              </span>
+              <span class="tasklist-row-right">
+                <span class="tasklist-row-tasktype">{{ task[2] }}</span>
+                <i class="fa fa-chevron-right row-icon tasklist-row-arrow"></i>
+              </span>
             </a>
           </li>
           {% endfor %}
