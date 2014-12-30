@@ -33,7 +33,7 @@
   }
 }
 
-#menu, .content, .footer {
+#menu, .content, .footer, .pure-menu-heading {
   font-family: 'Raleway';
   font-weight: 400;
 }
