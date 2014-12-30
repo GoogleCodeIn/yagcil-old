@@ -5,6 +5,10 @@
 {% block desc %}Profile of {{ name }} on Google Code-In 2014 leaderboard{% endblock %}
 
 {% block student_chart %}
+  function chartReady() {
+    var spinner = document.getElementById('chartLoadingProgress');
+    spinner.parentNode.removeChild(spinner);
+  }
   google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -24,7 +28,8 @@
           is3D: false
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('task-chart'));
+        var chart = new google.visualization.PieChart(document.getElementById('taskChart'));
+        google.visualization.events.addListener(chart, 'ready', chartReady);
         chart.draw(data, options);
       }
 {% endblock %}
@@ -40,7 +45,12 @@
 
 {% block content %}
     <div>
-      <div id="task-chart"></div>
+      <div id="chartArea">
+        <div id="chartLoadingProgress">
+          <i class="fa fa-5x fa-circle-o-notch fa-spin"></i>
+        </div>
+        <div id="taskChart"></div>
+      </div>
       <div class="pure-menu pure-menu-open" style="width: 100%">
         <ul>
           <a href="#" class="pure-menu-heading">Completed {% if (total > 1) or (total==0) %} tasks {% else %} task {% endif %}</a>
@@ -51,7 +61,7 @@
                 <span class="tasklist-row-tasktype">{{ task[2] }}</span>
                 <i class="fa fa-chevron-right row-icon tasklist-row-arrow"></i>
               </span>
-              <div class="tasklist-row-main"><span class="tasklist-row-main-text">{{ shorten(task[0], 80) }}</span></div>
+              <div class="tasklist-row-main-bound"><span class="tasklist-row-main-text">{{ shorten(task[0], 80) }}</span></div>
             </a>
           </li>
           {% endfor %}
