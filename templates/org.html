@@ -19,12 +19,14 @@
       {% for tup in leaderboard %}
       <li class="tasklist-row">
         <a title="See profile of {{ tup[0] }} in {{ org }}" href="{{ url_for('student', name=tup[0], e=tup[1], org=org) }}">
-          <span class="tasklist-row-main">
-            <b>{{ tup[0] }}</b> has finished <b>{{ tup[1] }}</b> {{ noun_form(tup[1], 'task', 'tasks') }}{% if org != 'All Organizations' %} in {{ org }} {% endif %}
-          </span>
           <span class="tasklist-row-right">
             <i class="fa fa-chevron-right row-icon tasklist-row-arrow"></i>
           </span>
+          <div class="tasklist-row-main">
+            <span class="tasklist-row-main-text">
+              <b>{{ tup[0] }}</b> has finished <b>{{ tup[1] }}</b> {{ noun_form(tup[1], 'task', 'tasks') }}{% if org != 'All Organizations' %} in {{ org }} {% endif %}
+            </span>
+          </div>
         </a>
       </li>
       {% endfor %}

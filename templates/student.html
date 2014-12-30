@@ -47,13 +47,11 @@
           {% for task in tasks %}
           <li class="tasklist-row">
             <a href="{{ task[1] }}" title="See task - {{ task[0] }} - on Google Melange" class="list-group-item list-group-item-info">
-              <span class="tasklist-row-main">
-                {{ shorten(task[0], 80) }}
-              </span>
               <span class="tasklist-row-right">
                 <span class="tasklist-row-tasktype">{{ task[2] }}</span>
                 <i class="fa fa-chevron-right row-icon tasklist-row-arrow"></i>
               </span>
+              <div class="tasklist-row-main"><span class="tasklist-row-main-text">{{ shorten(task[0], 80) }}</span></div>
             </a>
           </li>
           {% endfor %}
