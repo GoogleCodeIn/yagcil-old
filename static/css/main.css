@@ -10,6 +10,10 @@
   white-space: nowrap;           /* force single line */
 }
 
+.tasklist-row-main {
+  float: left;
+}
+
 .tasklist-row-right {
   float: right;
   padding-left: 1px;
