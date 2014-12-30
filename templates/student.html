@@ -25,10 +25,11 @@
         var options = {
           width: '100%',
           chartArea: {width: '100%', height: '80%'},
+          fontName: 'Raleway',//legend: {textStyle: {fontName: 'Raleway'}},
           is3D: false
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('taskChart'));
+        var chart = new google.visualization.PieChart(document.getElementById('tasksChart'));
         google.visualization.events.addListener(chart, 'ready', chartReady);
         chart.draw(data, options);
       }
@@ -49,7 +50,7 @@
         <div id="chartLoadingProgress">
           <i class="fa fa-5x fa-circle-o-notch fa-spin"></i>
         </div>
-        <div id="taskChart"></div>
+        <div id="tasksChart"></div>
       </div>
       <div class="pure-menu pure-menu-open" style="width: 100%">
         <ul>
@@ -61,7 +62,7 @@
                 <span class="tasklist-row-tasktype">{{ task[2] }}</span>
                 <i class="fa fa-chevron-right row-icon tasklist-row-arrow"></i>
               </span>
-              <div class="tasklist-row-main-bound"><span class="tasklist-row-main-text">{{ shorten(task[0], 80) }}</span></div>
+              <div class="tasklist-row-main-main"><span class="tasklist-row-main-text">{{ shorten(task[0], 80) }}</span></div>
             </a>
           </li>
           {% endfor %}

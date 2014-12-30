@@ -32,3 +32,8 @@
     display: none;
   }
 }
+
+#menu, .content, .footer {
+  font-family: 'Raleway';
+  font-weight: 400;
+}
