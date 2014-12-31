@@ -62,7 +62,11 @@
                 <span class="tasklist-row-tasktype">{{ task[2] }}</span>
                 <i class="fa fa-chevron-right row-icon tasklist-row-arrow"></i>
               </span>
-              <div class="tasklist-row-main-main"><span class="tasklist-row-main-text">{{ shorten(task[0], 80) }}</span></div>
+              <div class="tasklist-row-main">
+                <span class="tasklist-row-main-text">
+                  {{ shorten(task[0], 80) }}
+                </span>
+              </div>
             </a>
           </li>
           {% endfor %}
