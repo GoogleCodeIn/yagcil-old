@@ -1,8 +1,8 @@
 import sys
 from HTMLParser import HTMLParser
 from flask import *
-app = Flask(__name__)
 
+app = Flask(__name__)
 parser = HTMLParser()
 
 BASEURL = "http://www.google-melange.com/gci/org/google/gci2014/" \
@@ -48,6 +48,10 @@ def utility_processor():
         org_tabactive_attr=org_tabactive_attr
     )
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('errors/404.html', org=''), 404
 
 @app.route('/')
 def index():
@@ -174,7 +178,6 @@ def allorgs(draw=True):
                            org="All Organizations",
                            total=total,
                            students=total_students)
-
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=int(sys.argv[1]))
