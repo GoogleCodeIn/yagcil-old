@@ -9,7 +9,7 @@
   vertical-align: middle !important;
 }
 
-.tasklist-row-main {
+.tasklist-row, .tasklist-row-main {
   -o-text-overflow: ellipsis;    /* Opera */
   text-overflow:    ellipsis;    /* IE, Safari (WebKit) */
   overflow: hidden;              /* don't show excess chars */
