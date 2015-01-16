@@ -6,7 +6,7 @@ app = Flask(__name__)
 parser = HTMLParser()
 
 BASEURL = "http://www.google-melange.com/gci/org/google/gci2014/" \
-    "{orgname}?fmt=json&limit=500&idx=1"
+    "{orgname}?fmt=json&limit=1000&idx=1"
 
 orglist = ['sugarlabs',
            'mifos',
